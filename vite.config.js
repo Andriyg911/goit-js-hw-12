@@ -19,6 +19,24 @@ export default defineConfig(({ command }) => {
       }
     },
 
+export default defineConfig(({ command }) => {
+  const isDev = command === 'serve';
+
+  return {
+    // Inject a global or _global object depending on dev vs. build
+    define: {
+      [isDev ? 'global' : '_global']: {},
+    },
+
+    root: 'src',
+    base: isDev ? '' : '/goit-js-hw-12/',
+
+    server: {
+      fs: {
+        allow: ['..']
+      }
+    },
+
     build: {
       sourcemap: true,
       outDir: '../dist',
