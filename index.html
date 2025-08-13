@@ -3,32 +3,35 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Image Finder</title>
-  <script type="module" crossorigin src="/goit-js-hw-12/assets/index-0GEbDsJz.js"></script>
-  <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-ixxSqvg4.css">
+  <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-9md0t_4N.js">
+  <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-Dr4k8ETB.css">
+  <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-CCTWLJ-L.css">
 </head>
 
 <body>
   <header class="header">
     <div class="container">
-      <form id="search-form" class="search-form" autocomplete="off">
-        <input type="text" name="query" class="search-input" placeholder="Введіть пошуковий запит..." />
-        <button type="submit" class="search-btn">Search</button>
+      <!-- Форма з правильним класом -->
+      <form class="form" autocomplete="off">
+        <input type="text" name="query" placeholder="Введіть пошуковий запит..." required />
+        <button type="submit">Search</button>
       </form>
     </div>
   </header>
 
   <main class="main">
     <div class="container">
+      <!-- Галерея -->
       <ul class="gallery" aria-live="polite"></ul>
 
-      <div class="controls">
-        <button type="button" class="load-more is-hidden">Load more</button>
-        <div class="loader is-hidden" aria-hidden="true" aria-label="Loading">
-          <span class="spinner"></span>
-        </div>
-      </div>
+      <!-- Кнопка завантаження -->
+      <button type="button" class="load-more is-hidden">Load more</button>
+
+      <!-- Лоадер для автоперевірки -->
+      <span class="loader is-hidden" aria-hidden="true"></span>
     </div>
   </main>
 
