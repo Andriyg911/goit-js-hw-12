@@ -1,4 +1,6 @@
-// Головна логіка: пошук, пагінація, нотифікації
+// Поліфіл для глобальної змінної (вирішує "global is not defined" у браузері)
+window.global = window;
+
 import 'izitoast/dist/css/iziToast.min.css';
 import iziToast from 'izitoast';
 
@@ -15,7 +17,7 @@ import './css/styles.css';
 
 const PER_PAGE = 15;
 
-// Нові правильні селектори
+// Правильні селектори згідно з новим HTML
 const formEl = document.querySelector('.form');
 const galleryEl = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
@@ -25,9 +27,11 @@ let currentQuery = '';
 let currentPage = 1;
 let totalPages = 0;
 
+// Події
 formEl.addEventListener('submit', onSearchSubmit);
 loadMoreBtnEl.addEventListener('click', onLoadMore);
 
+// Пошук зображень
 async function onSearchSubmit(e) {
   e.preventDefault();
 
@@ -49,6 +53,7 @@ async function onSearchSubmit(e) {
 
   try {
     const { hits, totalHits } = await getImagesByQuery(currentQuery, currentPage);
+
     if (hits.length === 0) {
       iziToast.info({
         title: 'Нічого не знайдено',
@@ -65,7 +70,7 @@ async function onSearchSubmit(e) {
       showLoadMoreButton();
     } else {
       iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
+        message: "Ми вибачаємося, але ви досягли кінця результатів пошуку.",
         position: 'topRight',
       });
     }
@@ -77,9 +82,11 @@ async function onSearchSubmit(e) {
     });
   } finally {
     hideLoader(loaderEl);
+    e.target.reset();
   }
 }
 
+// Завантаження додаткових зображень
 async function onLoadMore() {
   currentPage += 1;
   showLoader(loaderEl);
@@ -92,7 +99,7 @@ async function onLoadMore() {
     if (currentPage >= totalPages) {
       hideLoadMoreButton();
       iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
+        message: "Ми вибачаємося, але ви досягли кінця результатів пошуку.",
         position: 'topRight',
       });
     }
@@ -107,6 +114,7 @@ async function onLoadMore() {
   }
 }
 
+// Плавний скрол після додавання нових карток
 function smoothScroll() {
   const firstCard = galleryEl.firstElementChild;
   if (!firstCard) return;
